@@ -92,13 +92,9 @@
       display: none;
     }
     @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr); /* สำหรับหน้าจอใหญ่ ให้กลับเป็น 2 คอลัมน์ */
-  }
-}
-      
-      
-      
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .column {
         width: 100%;
       }
@@ -112,6 +108,8 @@
       }
     }
   </style>
+  <!-- เพิ่ม SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
   <div class="container">
@@ -125,71 +123,83 @@
     </div>
   </div>
 
+  <!-- เพิ่ม audio สำหรับเสียงพื้นหลัง -->
+  <audio id="background-music" loop>
+    <source src="https://js-nonsaad.github.io/pm2.5/roundandround.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- เพิ่ม audio สำหรับเสียง effect เมื่อจับคู่ถูกต้อง -->
+  <audio id="correct-sound">
+    <source src="https://js-nonsaad.github.io/pm2.5/Correct.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- เพิ่ม SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     // คำศัพท์สำหรับเด็ก
     const elementsData = [
-  { english: "Cat", thai: "แมว" },
-  { english: "Dog", thai: "สุนัข" },
-  { english: "Apple", thai: "แอปเปิล" },
-  { english: "Banana", thai: "กล้วย" },
-  { english: "Fish", thai: "ปลา" },
-  { english: "Bird", thai: "นก" },
-  { english: "Car", thai: "รถยนต์" },
-  { english: "House", thai: "บ้าน" },
-  { english: "Sun", thai: "ดวงอาทิตย์" },
-  { english: "Moon", thai: "ดวงจันทร์" },
-  { english: "Tree", thai: "ต้นไม้" },
-  { english: "Flower", thai: "ดอกไม้" },
-  { english: "Water", thai: "น้ำ" },
-  { english: "Book", thai: "หนังสือ" },
-  { english: "Chair", thai: "เก้าอี้" },
-  { english: "Table", thai: "โต๊ะ" },
-  { english: "Milk", thai: "นม" },
-  { english: "Egg", thai: "ไข่" },
-  { english: "Ball", thai: "ลูกบอล" },
-  { english: "Bag", thai: "กระเป๋า" },
-{ english: "Cow", thai: "วัว" },
-  { english: "Sheep", thai: "แกะ" },
-  { english: "Goat", thai: "แพะ" },
-  { english: "Horse", thai: "ม้า" },
-  { english: "Duck", thai: "เป็ด" },
-  { english: "Orange", thai: "ส้ม" },
-  { english: "Mango", thai: "มะม่วง" },
-  { english: "Grapes", thai: "องุ่น" },
-  { english: "Pineapple", thai: "สับปะรด" },
-  { english: "Train", thai: "รถไฟ" },
-  { english: "Bus", thai: "รถบัส" },
-  { english: "Boat", thai: "เรือ" },
-  { english: "Cloud", thai: "เมฆ" },
-  { english: "Star", thai: "ดาว" },
-  { english: "Grass", thai: "หญ้า" },
-  { english: "Pen", thai: "ปากกา" },
-  { english: "Pencil", thai: "ดินสอ" },
-  { english: "Clock", thai: "นาฬิกา" },
-  { english: "Shoes", thai: "รองเท้า" },
-  { english: "Hat", thai: "หมวก" },
-  { english: "Rabbit", thai: "กระต่าย" },
-  { english: "Pig", thai: "หมู" },
-  { english: "Chicken", thai: "ไก่" },
-  { english: "Elephant", thai: "ช้าง" },
-  { english: "Tiger", thai: "เสือ" },
-  { english: "Lion", thai: "สิงโต" },
-  { english: "Monkey", thai: "ลิง" },
-  { english: "Strawberry", thai: "สตรอว์เบอร์รี" },
-  { english: "Peach", thai: "ลูกพีช" },
-  { english: "Coconut", thai: "มะพร้าว" },
-  { english: "Tree", thai: "ต้นไม้" },
-  { english: "Leaf", thai: "ใบไม้" },
-  { english: "Rock", thai: "หิน" },
-  { english: "River", thai: "แม่น้ำ" },
-  { english: "Mountain", thai: "ภูเขา" },
-  { english: "Rain", thai: "ฝน" },
-  { english: "Snow", thai: "หิมะ" },
-  { english: "Pizza", thai: "พิซซ่า" },
-  { english: "Ice cream", thai: "ไอศกรีม" },
-  { english: "Candy", thai: "ลูกกวาด" },
-
-
+      { english: "Cat", thai: "แมว" },
+      { english: "Dog", thai: "สุนัข" },
+      { english: "Apple", thai: "แอปเปิล" },
+      { english: "Banana", thai: "กล้วย" },
+      { english: "Fish", thai: "ปลา" },
+      { english: "Bird", thai: "นก" },
+      { english: "Car", thai: "รถยนต์" },
+      { english: "House", thai: "บ้าน" },
+      { english: "Sun", thai: "ดวงอาทิตย์" },
+      { english: "Moon", thai: "ดวงจันทร์" },
+      { english: "Tree", thai: "ต้นไม้" },
+      { english: "Flower", thai: "ดอกไม้" },
+      { english: "Water", thai: "น้ำ" },
+      { english: "Book", thai: "หนังสือ" },
+      { english: "Chair", thai: "เก้าอี้" },
+      { english: "Table", thai: "โต๊ะ" },
+      { english: "Milk", thai: "นม" },
+      { english: "Egg", thai: "ไข่" },
+      { english: "Ball", thai: "ลูกบอล" },
+      { english: "Bag", thai: "กระเป๋า" },
+      { english: "Cow", thai: "วัว" },
+      { english: "Sheep", thai: "แกะ" },
+      { english: "Goat", thai: "แพะ" },
+      { english: "Horse", thai: "ม้า" },
+      { english: "Duck", thai: "เป็ด" },
+      { english: "Orange", thai: "ส้ม" },
+      { english: "Mango", thai: "มะม่วง" },
+      { english: "Grapes", thai: "องุ่น" },
+      { english: "Pineapple", thai: "สับปะรด" },
+      { english: "Train", thai: "รถไฟ" },
+      { english: "Bus", thai: "รถบัส" },
+      { english: "Boat", thai: "เรือ" },
+      { english: "Cloud", thai: "เมฆ" },
+      { english: "Star", thai: "ดาว" },
+      { english: "Grass", thai: "หญ้า" },
+      { english: "Pen", thai: "ปากกา" },
+      { english: "Pencil", thai: "ดินสอ" },
+      { english: "Clock", thai: "นาฬิกา" },
+      { english: "Shoes", thai: "รองเท้า" },
+      { english: "Hat", thai: "หมวก" },
+      { english: "Rabbit", thai: "กระต่าย" },
+      { english: "Pig", thai: "หมู" },
+      { english: "Chicken", thai: "ไก่" },
+      { english: "Elephant", thai: "ช้าง" },
+      { english: "Tiger", thai: "เสือ" },
+      { english: "Lion", thai: "สิงโต" },
+      { english: "Monkey", thai: "ลิง" },
+      { english: "Strawberry", thai: "สตรอว์เบอร์รี" },
+      { english: "Peach", thai: "ลูกพีช" },
+      { english: "Coconut", thai: "มะพร้าว" },
+      { english: "Tree", thai: "ต้นไม้" },
+      { english: "Leaf", thai: "ใบไม้" },
+      { english: "Rock", thai: "หิน" },
+      { english: "River", thai: "แม่น้ำ" },
+      { english: "Mountain", thai: "ภูเขา" },
+      { english: "Rain", thai: "ฝน" },
+      { english: "Snow", thai: "หิมะ" },
+      { english: "Pizza", thai: "พิซซ่า" },
+      { english: "Ice cream", thai: "ไอศกรีม" },
+      { english: "Candy", thai: "ลูกกวาด" },
     ];
 
     const pairCount = 5;
@@ -206,6 +216,9 @@
     const rightColumn = document.getElementById("right-column");
     const timerContainer = document.getElementById("timer-container");
     const endScore = document.getElementById("end-score");
+
+    const backgroundMusic = document.getElementById("background-music");
+    const correctSound = document.getElementById("correct-sound");
 
     const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
@@ -273,6 +286,9 @@
         remainingPairs = remainingPairs.filter(pair => pair !== matchedPair);
         score++;
 
+        // เล่นเสียง effect เมื่อจับคู่ถูกต้อง
+        correctSound.play();
+
         if (remainingPairs.length === 0) {
           setTimeout(() => {
             loadNewRound();
@@ -301,6 +317,9 @@
       clearInterval(countdownInterval);
       endScore.style.display = "none";
 
+      // เริ่มเล่นเสียงพื้นหลัง
+      backgroundMusic.play();
+
       loadNewRound();
       gameBoard.style.display = "flex";
 
@@ -311,8 +330,17 @@
         if (timer <= 0) {
           clearInterval(countdownInterval);
           gameBoard.style.display = "none";
-          endScore.textContent = `คุณได้คะแนน: ${score}`;
           endScore.style.display = "block";
+
+
+
+          // แสดงผลคะแนนด้วย Sweetalert2
+          Swal.fire({
+            title: 'เกมจบแล้ว!',
+            text: `คุณได้คะแนน: ${score}`,
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+          });
         }
       }, 1000);
     };
