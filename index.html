@@ -116,7 +116,7 @@
     <h1>เกมส์จับคู่คำศัพท์</h1>
     <button id="start-button">เริ่มเกมใหม่</button>
     <div id="timer-container" class="timer">เวลา: 02:00</div>
-    <div id="end-score">คุณได้คะแนน: 0</div>
+    <div id="end-score"></div>
     <div id="game-board" class="grid" style="display: none;">
       <div class="column" id="left-column"></div>
       <div class="column" id="right-column"></div>
@@ -339,7 +339,7 @@
             title: 'เกมจบแล้ว!',
             text: `คุณได้คะแนน: ${score}`,
             icon: 'success',
-            confirmButtonText: 'ตกลง'
+            confirmButtonText: 'ตกลง' 
           });
         }
       }, 1000);
